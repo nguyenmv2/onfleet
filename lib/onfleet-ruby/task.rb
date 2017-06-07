@@ -22,7 +22,7 @@ module Onfleet
 
     def self.list query_params={}
       if query_params.empty?
-        query_params['from'] = (Time.zone.now - 1.month).to_i * 1000
+        query_params['from'] = (Time.zone.now - 1.week).to_i * 1000
       end
 
       has_more = true
