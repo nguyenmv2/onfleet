@@ -25,6 +25,27 @@ module Onfleet
         query_params['from'] = (Time.zone.now - 1.month).to_i * 1000
       end
 
+      has_more = true
+      last_id = nil
+      found_tasks = []
+
+      while has_more do
+        query_params['lastId'] = last_id unless last_id.nil?
+        tasks_response = task_request(query_params)
+
+        tasks_array = tasks_response[:tasks].compact
+        tasks_array.each do |listObj|
+          found_tasks << Util.constantize("#{self}").new(listObj)
+        end
+
+        has_more = tasks_response.has_key?(:lastId)
+        last_id = tasks_response[:lastId]
+      end
+
+      return found_tasks
+    end
+
+    def self.task_request(query_params = {})
       name_value_pairs = query_params.map do |key, value|
         "#{key}=#{value}"
       end
@@ -32,11 +53,8 @@ module Onfleet
       api_url = "#{self.api_url}/all?#{name_value_pairs.join('&')}"
 
       json_response = Onfleet.request(api_url, :get)
-      json_response.deep_symbolize_keys!
-      tasks_array = json_response[:tasks]
-      tasks_array.compact.map do |listObj|
-        Util.constantize("#{self}").new(listObj)
-      end
+
+      return json_response.deep_symbolize_keys
     end
   end
 end
