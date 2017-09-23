@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'onfleet-ruby'
-  s.version     = '0.1.7'
+  s.version     = '0.1.8'
   s.date        = '2017-06-06'
   s.summary     = "Onfleet ruby api"
   s.description = "To interact with Onfleet's API"
