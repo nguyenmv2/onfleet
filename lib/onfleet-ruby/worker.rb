@@ -9,7 +9,8 @@ module Onfleet
     include Onfleet::Actions::QueryMetadata
 
     def self.api_url
-      '/workers'
+      'workers'
     end
   end
 end
+

@@ -9,13 +9,13 @@ module Onfleet
     include Onfleet::Actions::QueryMetadata
 
     def self.api_url
-      '/tasks'
+      'tasks'
     end
 
     def complete
       # CURRENTLY DOESN'T WORK
-      url = "#{self.url}/#{self.id}/complete"
-      params = {"completionDetails" => {"success" => true }}
+      url = "#{self.url}/#{id}/complete"
+      params = { 'completionDetails' => { 'success' => true } }
       Onfleet.request(url, :post, params)
       true
     end
@@ -58,3 +58,4 @@ module Onfleet
     end
   end
 end
+

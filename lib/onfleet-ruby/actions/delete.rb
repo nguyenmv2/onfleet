@@ -2,16 +2,16 @@ module Onfleet
   module Actions
     module Delete
       module ClassMethods
-        def delete id
-          api_url = "#{self.api_url}/#{id}"
-          response = Onfleet.request(api_url, :delete)
+        def delete(id)
+          Onfleet.request("#{api_url}/#{id}", :delete)
           true
         end
       end
 
-      def self.included base
+      def self.included(base)
         base.extend(ClassMethods)
       end
     end
   end
 end
+
